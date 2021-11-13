@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 
 def subscribe(request):
-    return HttpResponse()
+    return render(request, 'subscribe.html')
