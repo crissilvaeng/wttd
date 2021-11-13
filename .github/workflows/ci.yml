@@ -24,7 +24,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Collect Static Files
+      - name: Setup Configurations
+        run: |
+          mv .env.example .env
+      - name: Collect Static
         run: |
           python manage.py collectstatic --noinput
       - name: Run Tests
