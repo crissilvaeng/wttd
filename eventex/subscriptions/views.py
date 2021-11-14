@@ -21,8 +21,8 @@ class SubscribeView(View):
             return render(request, 'subscribe.html', {'form': form})
 
         body = render_to_string('emails/subscribe.txt', form.cleaned_data)
-        mail.send_mail('Confirmação de inscrição', body, settings.EMAIL_SENDER,
-                       [settings.EMAIL_SENDER, form.cleaned_data['email']])
+        mail.send_mail('Confirmação de inscrição', body, settings.DEFAULT_FROM_EMAIL,
+                       [settings.DEFAULT_FROM_EMAIL, form.cleaned_data['email']])
         messages.success(request, 'Inscrição realizada com sucesso!')
 
         return HttpResponseRedirect('/inscricao/')
