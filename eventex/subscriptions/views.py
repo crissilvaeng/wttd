@@ -8,6 +8,7 @@ from django.http.response import HttpResponseRedirect
 from django.views import View
 
 from eventex.subscriptions.forms import SubscriptionForm
+from eventex.subscriptions.models import Subscription
 
 
 class SubscribeView(View):
@@ -24,5 +25,5 @@ class SubscribeView(View):
         mail.send_mail('Confirmação de inscrição', body, settings.DEFAULT_FROM_EMAIL,
                        [settings.DEFAULT_FROM_EMAIL, form.cleaned_data['email']])
         messages.success(request, 'Inscrição realizada com sucesso!')
-
+        Subscription.objects.create(**form.cleaned_data)
         return HttpResponseRedirect('/inscricao/')
