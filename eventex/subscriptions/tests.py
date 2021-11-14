@@ -1,4 +1,6 @@
 from django.core import mail
+from django.conf import settings
+
 from django.test import TestCase
 
 from eventex.subscriptions.forms import SubscriptionForm
@@ -64,12 +66,12 @@ class SubscribePostTest(TestCase):
 
     def test_subscription_email_from(self):
         email = mail.outbox[0]
-        expected = 'contato@eventex.com.br'
+        expected = settings.EMAIL_SENDER
         self.assertEqual(expected, email.from_email)
 
     def test_subscription_email_to(self):
         email = mail.outbox[0]
-        expected = ['contato@eventex.com.br', 'arthur@dent.uk']
+        expected = [settings.EMAIL_SENDER, 'arthur@dent.uk']
         self.assertEqual(expected, email.to)
 
     def test_subscription_email_body(self):
