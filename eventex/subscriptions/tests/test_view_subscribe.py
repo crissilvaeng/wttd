@@ -59,33 +59,6 @@ class SubscribePostValid(TestCase):
     def test_send_subscribe_email(self):
         self.assertEqual(1, len(mail.outbox))
 
-    def test_subscription_email_subject(self):
-        email = mail.outbox[0]
-        expected = 'Confirmação de inscrição'
-        self.assertEqual(expected, email.subject)
-
-    def test_subscription_email_from(self):
-        email = mail.outbox[0]
-        expected = settings.EMAIL_SENDER
-        self.assertEqual(expected, email.from_email)
-
-    def test_subscription_email_to(self):
-        email = mail.outbox[0]
-        expected = [settings.EMAIL_SENDER, 'arthur@dent.uk']
-        self.assertEqual(expected, email.to)
-
-    def test_subscription_email_body(self):
-        email = mail.outbox[0]
-        contents = [
-            'Arthur Dent',
-            '01234567890',
-            'arthur@dent.uk',
-            '21-99999-9999'
-        ]
-        for content in contents:
-            with self.subTest():
-                self.assertIn(content, email.body)
-
 
 class SubscribePostInvalid(TestCase):
     def setUp(self):
