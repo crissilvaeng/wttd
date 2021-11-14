@@ -6,7 +6,7 @@ from django.test import TestCase
 from eventex.subscriptions.forms import SubscriptionForm
 
 
-class SubscriptionTest(TestCase):
+class SubscribeGet(TestCase):
     def setUp(self):
         self.response = self.client.get('/inscricao/')
 
@@ -46,7 +46,7 @@ class SubscriptionTest(TestCase):
             ['name', 'cpf', 'email', 'phone'], list(form.fields))
 
 
-class SubscribePostTest(TestCase):
+class SubscribePostValid(TestCase):
     def setUp(self):
         data = dict(name='Arthur Dent', cpf='01234567890',
                     email='arthur@dent.uk', phone='21-99999-9999')
@@ -87,7 +87,7 @@ class SubscribePostTest(TestCase):
                 self.assertIn(content, email.body)
 
 
-class SubscribeInvalidPost(TestCase):
+class SubscribePostInvalid(TestCase):
     def setUp(self):
         self.response = self.client.post('/inscricao/', {})
 
