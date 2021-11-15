@@ -1,10 +1,9 @@
 from django.template.loader import render_to_string
 from django.shortcuts import render
 from django.core import mail
-from django.contrib import messages
 from django.conf import settings
 
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.views import View
 
 from eventex.subscriptions.forms import SubscriptionForm
@@ -21,9 +20,14 @@ class SubscribeView(View):
         if not form.is_valid():
             return render(request, 'subscribe.html', {'form': form})
 
-        body = render_to_string('emails/subscribe.txt', form.cleaned_data)
+        subscription = Subscription.objects.create(**form.cleaned_data)
+
+        body = render_to_string('emails/subscribe.txt', {'subscription': subscription})
         mail.send_mail('Confirmação de inscrição', body, settings.DEFAULT_FROM_EMAIL,
-                       [settings.DEFAULT_FROM_EMAIL, form.cleaned_data['email']])
-        messages.success(request, 'Inscrição realizada com sucesso!')
-        Subscription.objects.create(**form.cleaned_data)
-        return HttpResponseRedirect('/inscricao/')
+                       [settings.DEFAULT_FROM_EMAIL, subscription.email])
+
+        return HttpResponseRedirect(f'/inscricao/{subscription.pk}/')
+
+
+def details(request):
+    return HttpResponse()
