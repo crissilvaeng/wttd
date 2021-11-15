@@ -70,6 +70,7 @@ pyzmq==22.3.0
 qtconsole==5.2.0
 QtPy==1.11.2
 Send2Trash==1.8.0
+shortuuid==1.0.8
 six==1.16.0
 sqlparse==0.4.2
 static3==0.7.0
