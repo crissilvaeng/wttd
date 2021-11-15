@@ -140,7 +140,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Use manage test with pytest
 # https://pytest-django.readthedocs.io/en/latest/faq.html#how-can-i-use-manage-py-test-with-pytest-django
-TEST_RUNNER = 'eventex.runner.PytestTestRunner'
+# TEST_RUNNER = 'eventex.runner.PytestTestRunner'
 
 # Email backend configuration
 # https://docs.djangoproject.com/en/3.2/topics/email/
