@@ -6,7 +6,5 @@
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true,
   "python.envFile": ".env",
-  "python.analysis.extraPaths": [
-    "eventex"
-  ]
+  "python.analysis.diagnosticMode": "workspace"
 }
