@@ -24,3 +24,9 @@ class SubscriptionDetailGet(TestCase):
         for content in contents:
             with self.subTest():
                 self.assertContains(self.response, content)
+
+
+class SubscriptionDetailNotFound(TestCase):
+    def test_not_found(self):
+        response = self.client.get('/inscricao/0/')
+        self.assertEqual(404, response.status_code)

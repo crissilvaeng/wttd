@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.core import mail
 from django.conf import settings
 
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, Http404
 from django.views import View
 
 from eventex.subscriptions.forms import SubscriptionForm
@@ -30,5 +30,8 @@ class SubscribeView(View):
 
 
 def details(request, id):
-    subscription = Subscription.objects.get(pk=id)
-    return render(request, 'detail.html', {'subscription': subscription})
+    try:
+        subscription = Subscription.objects.get(pk=id)
+        return render(request, 'detail.html', {'subscription': subscription})
+    except Subscription.DoesNotExist:
+        raise Http404
