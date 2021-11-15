@@ -29,5 +29,6 @@ class SubscribeView(View):
         return HttpResponseRedirect(f'/inscricao/{subscription.pk}/')
 
 
-def details(request):
-    return render(request, 'detail.html')
+def details(request, id):
+    subscription = Subscription.objects.get(pk=id)
+    return render(request, 'detail.html', {'subscription': subscription})
