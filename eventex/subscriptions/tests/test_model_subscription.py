@@ -20,3 +20,6 @@ class SubscriptionModelTest(TestCase):
 
     def test_str(self):
         self.assertEqual('Arthur Dent', str(self.obj))
+
+    def test_has_uuid(self):
+        self.assertIsNotNone(self.obj.uuid)
