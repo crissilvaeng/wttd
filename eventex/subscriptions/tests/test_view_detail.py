@@ -8,3 +8,6 @@ class SubscriptionDetailGet(TestCase):
     def test_get(self):
         """GET /inscricao/1/ must return status code 200"""
         self.assertEqual(200, self.response.status_code)
+
+    def test_template(self):
+        self.assertTemplateUsed(self.response, 'detail.html')

@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.core import mail
 from django.conf import settings
 
-from django.http.response import HttpResponse, HttpResponseRedirect
+from django.http.response import HttpResponseRedirect
 from django.views import View
 
 from eventex.subscriptions.forms import SubscriptionForm
@@ -30,4 +30,4 @@ class SubscribeView(View):
 
 
 def details(request):
-    return HttpResponse()
+    return render(request, 'detail.html')
