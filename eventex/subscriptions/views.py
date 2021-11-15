@@ -1,3 +1,5 @@
+import shortuuid
+
 from django.template.loader import render_to_string
 from django.shortcuts import render
 from django.core import mail
@@ -26,12 +28,12 @@ class SubscribeView(View):
         mail.send_mail('Confirmação de inscrição', body, settings.DEFAULT_FROM_EMAIL,
                        [settings.DEFAULT_FROM_EMAIL, subscription.email])
 
-        return HttpResponseRedirect(f'/inscricao/{subscription.pk}/')
+        return HttpResponseRedirect(f'/inscricao/{shortuuid.encode(subscription.uuid)}/')
 
 
 def details(request, id):
     try:
-        subscription = Subscription.objects.get(pk=id)
+        subscription = Subscription.objects.get(uuid=shortuuid.decode(id))
         return render(request, 'detail.html', {'subscription': subscription})
-    except Subscription.DoesNotExist:
+    except (Subscription.DoesNotExist, ValueError):
         raise Http404

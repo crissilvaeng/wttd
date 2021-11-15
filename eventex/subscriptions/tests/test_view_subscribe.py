@@ -1,3 +1,5 @@
+import shortuuid
+
 from django.core import mail
 
 from django.test import TestCase
@@ -45,15 +47,19 @@ class SubscribePostValid(TestCase):
         data = dict(name='Arthur Dent', cpf='01234567890',
                     email='arthur@dent.uk', phone='21-99999-9999')
         self.response = self.client.post('/inscricao/', data)
+        self.subscription = Subscription.objects.get(pk=1)
 
     def test_post(self):
-        """Valid POST should redirect to /inscricao/1"""
-        self.assertRedirects(self.response, '/inscricao/1/')
+        """Valid POST should redirect to /inscricao/<shortuuid>"""
+        id = shortuuid.encode(self.subscription.uuid)
+        self.assertRedirects(self.response, f'/inscricao/{id}/')
 
     def test_send_subscribe_email(self):
+        """Must send email to user"""
         self.assertEqual(1, len(mail.outbox))
 
     def test_save_subscription(self):
+        """Must save subscription"""
         self.assertTrue(Subscription.objects.exists())
 
 
@@ -66,15 +72,19 @@ class SubscribePostInvalid(TestCase):
         self.assertEqual(200, self.response.status_code)
 
     def test_template(self):
+        """Must use subscribe.html"""
         self.assertTemplateUsed(self.response, 'subscribe.html')
 
     def test_has_form(self):
+        """Context must have subscription form"""
         form = self.response.context['form']
         self.assertIsInstance(form, SubscriptionForm)
 
     def test_form_has_errors(self):
+        """Form must have errors"""
         form = self.response.context['form']
         self.assertTrue(form.errors)
 
     def test_dont_save_subscription(self):
+        """"Must not save subscription"""
         self.assertFalse(Subscription.objects.exists())
