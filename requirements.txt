@@ -11,7 +11,7 @@ debugpy==1.5.1
 decorator==5.1.0
 defusedxml==0.7.1
 dj-database-url==0.5.0
-Django==3.2.8
+Django==3.2.23
 django-extensions==3.1.5
 django-test-without-migrations==0.6
 entrypoints==0.3
